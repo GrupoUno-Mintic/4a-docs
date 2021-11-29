@@ -1,2 +1,0 @@
-from .tiendaSerializer import TiendaSerializer
-from .inventarioSerializer import InventarioSerializer
