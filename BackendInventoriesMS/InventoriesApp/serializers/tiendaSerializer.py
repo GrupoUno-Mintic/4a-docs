@@ -7,8 +7,6 @@ class TiendaSerializer(serializers.ModelSerializer):
         model = Tienda
         fields = ['nit', 'nombre_tienda', 'direccion_tienda']
     
-    
-
     def create(self, validated_data):
         return Tienda.objects.create(**validated_data) # Dict to Tienda instance
     

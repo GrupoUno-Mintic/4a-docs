@@ -1,10 +1,9 @@
 from rest_framework import generics, status
-from rest_framework import serializers
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.serializers import Serializer
+#from rest_framework.permissions import IsAuthenticated, AllowAny
 from InventoriesApp.models import Inventario
 from InventoriesApp.serializers import InventarioSerializer
+import logging as L
 
 #Lista todos los inventarios
 class InventarioView(generics.ListAPIView):
@@ -13,51 +12,73 @@ class InventarioView(generics.ListAPIView):
     #permission_classes = (IsAuthenticated,)  # Solo los usuarios autenticados pueden acceder a este endpoint
 
     def get(self, request, *args, **kwargs):
-        # many=True para que devuelva una lista
-        serializer = InventarioSerializer(self.get_queryset(), many=True)
+        serializer = InventarioSerializer(self.get_queryset(), many=True)  # many=True para que devuelva una lista
         return Response(serializer.data)
 
+#listar una Inventario específico
+class InventarioDetailView(generics.RetrieveAPIView):
+    queryset = Inventario.objects.all()
+    lookup_field = 'pk'
+    serializer_class = InventarioSerializer
 
-""" class InventarioCreateView(generics.CreateAPIView):
+    def get(self, *args, **kwargs):
+        # Devuelve un queryset tamaño 1
+        tienda_qs = Inventario.objects.filter(pk=self.kwargs[self.lookup_field])
+        if tienda_qs.exists():
+            serializer = InventarioSerializer(tienda_qs, many=True)
+            return Response(serializer.data, status.HTTP_200_OK)
+        else:
+            L.error(
+                f'Inventario with codigo_barras {self.kwargs[self.lookup_field]} not found.')
+            return Response({'detail': f'Inventario with codigo_barras {self.kwargs[self.lookup_field]} not found.'}, status.HTTP_404_NOT_FOUND)
+
+
+
+
+# Crear item inventario
+class InventarioCreateView(generics.CreateAPIView):
     serializer_class = InventarioSerializer
     #permission_classes = (IsAuthenticated,) #Solo los usuarios autenticados pueden acceder a este endpoint
 
     def post(self, request, *args, **kwargs):
-        if request.method == 'POST':
+        serializer = InventarioSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
+
+#actualizar un item de inventario
+class InventarioUpdateView(generics.RetrieveUpdateAPIView):
+    queryset = Inventario.objects.all()
+    serializer_class = InventarioSerializer
+    #permission_classes = (IsAuthenticated,) #Solo los usuarios autenticados pueden acceder a este endpoint
+    
+    def update(self, request, *args, **kwargs):
+            instanceInventario = self.get_object()
             serializer = InventarioSerializer(data=request.data)
             if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                inventarioUpdated = serializer.update(instanceInventario, serializer.validated_data)
+                serializer = InventarioSerializer(inventarioUpdated)
+                return Response(serializer.data, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        #return Response(data=None, status=status.HTTP_405_METHOD_NOT_ALLOWED) """
 
-'''
-class TiendaView(generics.ListAPIView):  # Lista todas las tienda
-    queryset = Tienda.objects.all()
-    serializer_class = TiendaSerializer
-    # Solo los usuarios autenticados pueden acceder a este endpoint
-    permission_classes = (IsAuthenticated,)
+#eliminar un Inventario
+class InventarioDeleteView(generics.DestroyAPIView):
+    queryset = Inventario.objects.all()
+    lookup_field = 'pk'
+    serializer_class = InventarioSerializer
 
-    def get(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = TiendaSerializer(queryset, many=True)
-        return Response(serializer.data)
+    def get(self, *args, **kwargs):
+        # Devuelve un queryset tamaño 1
+        inventario_qs = Inventario.objects.filter(pk=self.kwargs[self.lookup_field])
+        if inventario_qs.exists():
+            serializer = InventarioSerializer(inventario_qs, many=True)
+            return Response(serializer.data, status.HTTP_200_OK)
+        else:
+            L.error(f'Inventario with codigo_barras {self.kwargs[self.lookup_field]} not found.')
+            return Response({'detail': f'Inventario with codigo_barras {self.kwargs[self.lookup_field]} not found.'}, status.HTTP_404_NOT_FOUND)
 
-
-class TiendaCreateView(generics.CreateAPIView):  # Crea una tienda
-    serializer_class = TiendaSerializer
-    # Solo los usuarios autenticados pueden acceder a este endpoint
-    permission_classes = (IsAuthenticated,)
-
-    def post(self, request, *args, **kwargs):
-        if request.method == 'POST':
-            # Datos enviados desde el frontend - type dict
-            serializer = TiendaSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        #return Response(data=None, status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
-
-'''
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)

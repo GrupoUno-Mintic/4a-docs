@@ -1,5 +1,5 @@
 """
-ASGI config for g6Project project.
+ASGI config for InventoriesProject project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

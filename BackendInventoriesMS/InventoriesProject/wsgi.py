@@ -1,5 +1,5 @@
 """
-WSGI config for g6Project project.
+WSGI config for InventoriesProject project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'g6Project.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'InventoriesProject.settings')
 
 application = get_wsgi_application()

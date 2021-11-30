@@ -22,8 +22,19 @@ from InventoriesApp import views
 urlpatterns = [
     #path('login/', TokenObtainPairView.as_view()),                          # Cada vez que una persona logue, retorna los tokens de acceso y refresh correspondientes -- Ready!
     #path('refresh/', TokenRefreshView.as_view()),                           # Genera nuevo token de acceso
-    #path('inventarios/', views.),                 # Retorna una lista de productos
-    path('inventarios/', views.InventarioView.as_view()),                    # Retorna una lista de inventarios
-    #path('inventario/create', views.InventarioCreateView.as_view()),        # Crea un inventario
+    path('inventario/', views.InventarioView.as_view()),                        # Retorna una lista de inventarios - check!
+    path('inventario/<int:pk>', views.InventarioDetailView.as_view()),          # Retorna un Inventario específico - check!
+    path('inventario/create', views.InventarioCreateView.as_view()),            # Crea un item de inventario - check!
+    path('inventario/update/<int:pk>', views.InventarioUpdateView.as_view()),   # Actualiza un item de inventario - check!
+    path('inventario/delete/<int:pk>', views.InventarioDeleteView.as_view()),   # Elimina un item de inventario - check!
+    path('tienda/', views.TiendaView.as_view()),                                # Retorna las tiendas - check!
+    path('tienda/<int:pk>', views.TiendaDetailView.as_view()),                  # Retorna una tienda - check!
+    path('tienda/create', views.TiendaCreateView.as_view()),                    # Crea una tienda  - check!
+    path('tienda/update/<int:pk>', views.TiendaUpdateView.as_view()),           # Actualiza una tienda - check!
+    path('tienda/delete/<int:pk>', views.TiendaDeleteView.as_view()),           # Elimina una tienda - check!
+    path('tallas/', views.TallaView.as_view()),                                 # Retorna las tallas - check!
+    path('tallas/<int:pk>', views.TallaDetailView.as_view()),                   # Retorna una tallas - check!
+    path('tallas/create', views.TallaCreateView.as_view()),                     # Crea una talla - check!
+    path('tallas/update/<int:pk>', views.TallaUpdateView.as_view()),            # Actualiza una talla - check!
+    path('tallas/delete/<pk>', views.TallaDeleteView.as_view()),                # Elimina una talla - check!
 ]
-

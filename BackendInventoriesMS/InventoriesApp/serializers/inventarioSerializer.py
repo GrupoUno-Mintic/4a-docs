@@ -1,28 +1,27 @@
 from rest_framework import serializers
-from InventoriesApp.models import inventario
 from InventoriesApp.models.inventario import Inventario
 from InventoriesApp.models.tienda import Tienda
 from InventoriesApp.serializers.tiendaSerializer import TiendaSerializer
 
 
 class InventarioSerializer(serializers.ModelSerializer):
-    tienda = TiendaSerializer()
+    #tienda = TiendaSerializer()
     class Meta:
         model = Inventario
-        fields = ['codigo_barras', 'nombre_prod', 'descripcion', 'fecha_vencimiento',
+        fields = ['codigo_barras', 'nombre_prod', 'descripcion', 'talla', 'cantidad',
                   'fecha_ingreso', 'precio_compra', 'precio_venta', 'nit_tienda']
 
-    
+    '''
     def create(self, validated_data):
-        tiendaData = validated_data.pop('tienda')
+        tiendaData = validated_data.pop('nit_tienda')
         inventarioInstance = Inventario.objects.create(**validated_data)
-        Tienda.objects.create(inventario=inventarioInstance, **tiendaData)
+        Inventario.objects.create(inventario=inventarioInstance, **tiendaData)
         return inventarioInstance
-   
+    
     
     def to_representation(self,obj):
-        inventario = Inventario.objects.get(id=obj.id)
-        tienda = Tienda.objects.get(inventario=obj.id)
+        inventario = Inventario.objects.get(id=obj.codigo_barras)
+        tienda = Tienda.objects.get(inventario=obj.id)  # REVISAR <<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>
         return{
             'codigo_barras': inventario.codigo_barras,
             'nombre_prod': inventario.nombre_prod,
@@ -37,3 +36,4 @@ class InventarioSerializer(serializers.ModelSerializer):
                 'direccion': tienda.direccion_misc
             }    
         }
+        '''

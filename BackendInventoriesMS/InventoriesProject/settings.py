@@ -123,10 +123,10 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+
 '''
-
 # PRUEBA LOCAL DB Postgresql
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

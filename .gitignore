@@ -51,5 +51,5 @@ Thumbs.db
 # Custom Folders
 /BackendAutenticacionMs/env/
 /BackendAutenticacionMs/.gitignore
-/BackendInventoriesMS/env/
+/env/
 /utils/
