@@ -1,6 +1,6 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
-#from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from InventoriesApp.models import Inventario
 from InventoriesApp.serializers import InventarioSerializer
 import logging as L
@@ -20,6 +20,7 @@ class InventarioDetailView(generics.RetrieveAPIView):
     queryset = Inventario.objects.all()
     lookup_field = 'pk'
     serializer_class = InventarioSerializer
+    #permission_classes = (IsAuthenticated,)  # Solo los usuarios autenticados pueden acceder a este endpoint
 
     def get(self, *args, **kwargs):
         # Devuelve un queryset tamaño 1
@@ -69,6 +70,7 @@ class InventarioDeleteView(generics.DestroyAPIView):
     queryset = Inventario.objects.all()
     lookup_field = 'pk'
     serializer_class = InventarioSerializer
+    #permission_classes = (IsAuthenticated,)  # Solo los usuarios autenticados pueden acceder a este endpoint
 
     def get(self, *args, **kwargs):
         # Devuelve un queryset tamaño 1

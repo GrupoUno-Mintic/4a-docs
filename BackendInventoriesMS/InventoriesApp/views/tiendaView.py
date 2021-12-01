@@ -1,6 +1,7 @@
 from django.db.models.query import QuerySet
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from InventoriesApp.models.tienda import Tienda
 from InventoriesApp.serializers.tiendaSerializer import TiendaSerializer
 import logging as L
@@ -24,7 +25,8 @@ class TiendaDetailView(generics.RetrieveAPIView):
     queryset = Tienda.objects.all()
     lookup_field = 'pk'
     serializer_class = TiendaSerializer    
-    
+    #permission_classes = (IsAuthenticated,) #Solo los usuarios autenticados pueden acceder a este endpoint
+
     def get(self, *args, **kwargs):
         tienda_qs = Tienda.objects.filter(pk=self.kwargs[self.lookup_field])  # Devuelve un queryset tamaño 1
         if tienda_qs.exists():
@@ -64,7 +66,8 @@ class TiendaDeleteView(generics.DestroyAPIView):
     queryset = Tienda.objects.all()
     lookup_field = 'pk'
     serializer_class = TiendaSerializer
-
+    #permission_classes = (IsAuthenticated,) #Solo los usuarios autenticados pueden acceder a este endpoint
+    
     def get(self, *args, **kwargs):
         # Devuelve un queryset tamaño 1
         tienda_qs = Tienda.objects.filter(pk=self.kwargs[self.lookup_field])

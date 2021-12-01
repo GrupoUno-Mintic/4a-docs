@@ -19,9 +19,10 @@ from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshVie
 from InventoriesApp import views
 
 
+
 urlpatterns = [
-    #path('login/', TokenObtainPairView.as_view()),                          # Cada vez que una persona logue, retorna los tokens de acceso y refresh correspondientes -- Ready!
-    #path('refresh/', TokenRefreshView.as_view()),                           # Genera nuevo token de acceso
+    path('login/', TokenObtainPairView.as_view()),                              # Cada vez que una persona logue, retorna los tokens de acceso y refresh correspondientes -- Ready!
+    path('refresh/', TokenRefreshView.as_view()),                               # Genera nuevo token de acceso
     path('inventario/', views.InventarioView.as_view()),                        # Retorna una lista de inventarios - check!
     path('inventario/<int:pk>', views.InventarioDetailView.as_view()),          # Retorna un Inventario específico - check!
     path('inventario/create', views.InventarioCreateView.as_view()),            # Crea un item de inventario - check!

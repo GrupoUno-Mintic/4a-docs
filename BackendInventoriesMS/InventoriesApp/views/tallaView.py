@@ -1,10 +1,9 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from InventoriesApp.models import Talla
 from InventoriesApp.serializers import TallaSerializer
 import logging as L
-
-#, TallaDetailView, TallaCreateView, TallaUpdateView, TallaDeleteView
 
 # Obtener Talla
 class TallaView(generics.ListAPIView):  # Lista todas las tallas
@@ -23,6 +22,7 @@ class TallaDetailView(generics.RetrieveAPIView):
     queryset = Talla.objects.all()
     lookup_field = 'pk'
     serializer_class = TallaSerializer
+    #permission_classes = (IsAuthenticated,) #Solo los usuarios autenticados pueden acceder a este endpoint
 
     def get(self, *args, **kwargs):
         talla_qs = Talla.objects.filter(pk=self.kwargs[self.lookup_field])  # Devuelve un queryset tamaño 1
@@ -64,6 +64,7 @@ class TallaDeleteView(generics.DestroyAPIView):
     queryset = Talla.objects.all()
     lookup_field = 'pk'
     serializer_class = TallaSerializer
+    #permission_classes = (IsAuthenticated,) #Solo los usuarios autenticados pueden acceder a este endpoint
 
     def get(self, *args, **kwargs):
         # Devuelve un queryset tamaño 1
