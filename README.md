@@ -10,7 +10,7 @@ Profesor Carlos Gómez
 ### Microservicio de Usuarios / [Autentificación](https://github.com/GrupoUno-Mintic/4a-docs/tree/main/BackendAutenticacionMs)
 
 
-### Microservicio de [Inventarios]()
+### Microservicio de [Inventarios](https://github.com/GrupoUno-Mintic/4a-docs/tree/main/BackendInventoriesMS)
 
 ### Microservicios de [Transacciones]()
 
