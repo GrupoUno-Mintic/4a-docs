@@ -52,4 +52,5 @@ Thumbs.db
 /BackendAutenticacionMs/env/
 /BackendAutenticacionMs/.gitignore
 /env/
+/BackendInventoriesMS/env/
 /utils/
