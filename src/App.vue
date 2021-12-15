@@ -102,7 +102,13 @@
 
     <div class="footer">
       <h1>Misión Tic Ciclo 4</h1>
-     
+      <div class="ing">
+        <h2>Paola Andrea Lozada Gutiérrez</h2>
+        <h2>Yujak Stiwar Vélez</h2>
+        <h2>Julián Cortes</h2>
+
+      </div>
+          
     </div>
   </div>
 </template>
@@ -282,8 +288,7 @@ body {
   min-height: 100px;
   background-color: #283747;
   color: #e5e7e9;
-  justify-items: center;
-  align-items: center;
+  
   display: flex;
 }
 
@@ -300,10 +305,17 @@ body {
   height: 100%;
   align-content: flex-end;
   justify-items: flex-end;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
 }
 .ing h2{
   width: 100%;
+
+  display: flex;
+  padding: 0;
  justify-items: flex-end;
+ 
  
 }
 .contenedor_slider_M {

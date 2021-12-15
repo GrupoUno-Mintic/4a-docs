@@ -1,25 +1,19 @@
-# Tienda deportiva
+# Minball
 
-Desarrollo app ciclo 4 Misión Tic 2022- Grupo 1
+## Project setup
+```
+npm install
+```
 
-Profesor Carlos Gómez
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
----
-## Backend microservicios
+### Compiles and minifies for production
+```
+npm run build
+```
 
-### Microservicio de Usuarios / [Autentificación](https://github.com/GrupoUno-Mintic/4a-docs/tree/main/BackendAutenticacionMs)
-
-
-### Microservicio de [Inventarios](https://github.com/GrupoUno-Mintic/4a-docs/tree/main/BackendInventoriesMS)
-
-### Microservicios de [Transacciones]()
-
-
-
-
-
-<br><br>
-
----
-
-## Frontend
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -51,22 +51,29 @@ export default {
     }
   },
   data: function () {
-    return {
-      createTransaction: {
-        user: localStorage.getItem("username"),
-        id_producto: "",
-        cantidad: "",
-        valor_producto: "",
-      },
-    };
+    if (localStorage.getItem("producto") != null) {
+      return {
+        createTransaction: {
+          user: localStorage.getItem("username"),
+          id_producto: parseInt(localStorage.getItem("producto")),
+          cantidad: parseInt(localStorage.getItem("cantidad")),
+          valor_producto: parseInt(localStorage.getItem("valor")),
+        },
+      };
+    } else {
+      return {
+        createTransaction: {
+          user: localStorage.getItem("username"),
+          id_producto: "",
+          cantidad: "",
+          valor_producto: "",
+        },
+      };
+    }
   },
 
   methods: {
     processTransaction: async function () {
-      alert(this.createTransaction.id_producto);
-      alert(this.createTransaction.cantidad);
-      alert(this.createTransaction.valor_producto);
-
       if (
         localStorage.getItem("token_access") === null ||
         localStorage.getItem("token_refresh") === null
@@ -119,6 +126,7 @@ export default {
         });
       /* localStorage.setItem("producto", null);*/
       localStorage.removeItem("producto");
+       this.$router.push({ name: "comprador" });
     },
   },
 };
